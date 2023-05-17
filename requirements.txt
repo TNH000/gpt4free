@@ -9,3 +9,4 @@ streamlit==1.21.0
 selenium
 fake-useragent
 twocaptcha
+gpt4free
