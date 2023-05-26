@@ -1,4 +1,4 @@
-import os
+import os, json
 import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), os.path.pardir))
@@ -6,9 +6,8 @@ sys.path.append(os.path.join(os.path.dirname(__file__), os.path.pardir))
 import streamlit as st
 from json import loads
 from os import urandom
-from gpt4free import you
 
-from requests import get
+from requests import post
 
 # Generate a random session ID
 sessionId = urandom(10).hex()
@@ -20,7 +19,7 @@ headers = {
     'Cache-Control': 'no-cache',
     'Connection': 'keep-alive',
     'Pragma': 'no-cache',
-    'Referer': 'http://easy-ai.ink/chat',
+    'Referer': 'https://ora.ai/',
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
     'token': 'null',
 }
@@ -28,11 +27,18 @@ headers = {
 def get_answer(question: str) -> str:
     # Set cloudflare clearance cookie and get answer from GPT-4 model
     try:
-        reply = you.Completion.create(prompt=question, detailed=True, include_links=True, ).text
+        params = {"chatbotId":"d9afd8ee-f6d3-4717-8aae-35e2dfe88de5","input":question,"userId":"66336d6d-0b9a-4921-850b-e52252490d84","provider":"OPEN_AI","config":False,"includeHistory":True}
+        
+        reply = ''
+    # Send request to the API and process the response
+        chunk = post('https://ora.ai/api/conversation', params=params, headers=headers, verify=False, stream=True).text:
+        if 'response' in chunk:
+                 data = json.loads(chunk)
+                 reply+=['response']
         return reply
     except Exception as e:
         # Return error message if an exception occurs
-        return f'Contact Shajada0'
+        return f'An error occurred: {e}. Please Contact Shajada0.'
 
 # Set page configuration and add header
 st.set_page_config(
@@ -42,10 +48,10 @@ st.set_page_config(
     menu_items={
         'Get Help': 'https://www.facebook.com/Shajada0',
         'Report a bug': "https://www.facebook.com/Shajada0",
-        'About': "Alpha AI By Shajada"
+        'About': "Alpha AI 5.0 By Shajada"
     }
 )
-st.header('Alpha AI By Shajada')
+st.header('Alpha AI 5.0 By Shajada')
 
 # Add text area for user input and button to get answer
 question_text_area = st.text_area(
