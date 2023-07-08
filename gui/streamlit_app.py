@@ -14,27 +14,38 @@ sessionId = urandom(10).hex()
 
 # Set up headers for the API request
 headers = {
-    'Accept': 'text/event-stream',
-    'Accept-Language': 'en,fr-FR;q=0.9,fr;q=0.8,es-ES;q=0.7,es;q=0.6,en-US;q=0.5,am;q=0.4,de;q=0.3',
-    'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive',
-    'Pragma': 'no-cache',
-    'Referer': 'https://ora.ai/',
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36',
-    'token': 'null',
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.9",
+    "content-type": "application/json",
+    "sec-ch-ua": "\"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"114\", \"Google Chrome\";v=\"114\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-origin",
+    "Referer": "https://p2.v50.ltd/",
+    "Referrer-Policy": "strict-origin-when-cross-origin"
 }
 
 def get_answer(question: str) -> str:
     # Set cloudflare clearance cookie and get answer from GPT-4 model
     try:
         params = {"chatbotId":"d9afd8ee-f6d3-4717-8aae-35e2dfe88de5","input":question,"userId":"66336d6d-0b9a-4921-850b-e52252490d84","provider":"OPEN_AI","config":False,"includeHistory":True}
+        params = {
+        "prompt": question,
+        "options": {},
+        "systemMessage": "You are AlphaAI, a large language model trained by Shajada Alif. Follow the user's instructions carefully. Respond using markdown.",
+        "temperature": 0.8,
+        "top_p": 1,
+        "model": "capybara",
+        "user": None
+        }
         
         reply = ''
-    # Send request to the API and process the response
-        chunk = post('https://ora.ai/api/conversation', params=params, headers=headers, verify=False, stream=True).text:
-        if 'response' in chunk:
-                 data = json.loads(chunk)
-                 reply+=['response']
+        # Send request to the API and process the response
+        chunk = post('https://p2.v50.ltd/api/chat-process', headers=headers, data=json.dumps(payload)):
+        if 200 in chunk.status_code:
+                 reply+=chunk.text
         return reply
     except Exception as e:
         # Return error message if an exception occurs
