@@ -43,7 +43,7 @@ def get_answer(question: str) -> str:
         
         reply = ''
         # Send request to the API and process the response
-        chunk = post('https://p2.v50.ltd/api/chat-process', headers=headers, data=json.dumps(payload)):
+        chunk = post('https://p2.v50.ltd/api/chat-process', headers=headers, data=json.dumps(payload))
         if 200 in chunk.status_code:
                  reply+=chunk.text
         return reply
