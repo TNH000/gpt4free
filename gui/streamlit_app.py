@@ -12,7 +12,6 @@ from requests import post
 # Generate a random session ID
 sessionId = urandom(10).hex()
 
-# Set up headers for the API request
 headers = {
     "accept": "application/json, text/plain, */*",
     "accept-language": "en-US,en;q=0.9",
@@ -28,9 +27,7 @@ headers = {
 }
 
 def get_answer(question: str) -> str:
-    # Set cloudflare clearance cookie and get answer from GPT-4 model
     try:
-        params = {"chatbotId":"d9afd8ee-f6d3-4717-8aae-35e2dfe88de5","input":question,"userId":"66336d6d-0b9a-4921-850b-e52252490d84","provider":"OPEN_AI","config":False,"includeHistory":True}
         params = {
         "prompt": question,
         "options": {},
@@ -40,9 +37,7 @@ def get_answer(question: str) -> str:
         "model": "capybara",
         "user": None
         }
-        
         reply = ''
-        # Send request to the API and process the response
         chunk = post('https://p2.v50.ltd/api/chat-process', headers=headers, data=json.dumps(payload))
         if 200 in chunk.status_code:
                  reply+=chunk.text
