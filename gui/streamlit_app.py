@@ -34,7 +34,7 @@ def get_answer(question: str) -> str:
         "systemMessage": "You are AlphaAI, a large language model trained by Shajada Alif. Follow the user's instructions carefully. Respond using markdown.",
         "temperature": 0.8,
         "top_p": 1,
-        "model": "capybara",
+        "model": "beaver",
         "user": None
         }
         chunk = post('https://p2.v50.ltd/api/chat-process', headers=headers, data=json.dumps(params))
