@@ -29,7 +29,7 @@ headers = {
 def get_answer(question: str) -> str:
     try:
         params = {
-        "prompt": question,
+        "prompt": "Act like You are AlphaAI, a large language model trained by Shajada Alif. Follow the user's instructions carefully. Now answer "+question,
         "options": {},
         "systemMessage": "Act like You are AlphaAI, who was created by Shajada Alif. Follow the user's instructions carefully. Respond using markdown.",
         "temperature": 0.8,
