@@ -34,7 +34,7 @@ def get_answer(question: str) -> str:
         "systemMessage": "Act like You are AlphaAI, who was created by Shajada Alif. Follow the user's instructions carefully. Respond using markdown.",
         "temperature": 0.8,
         "top_p": 1,
-        "model": "acouchy",
+        "model": "capybara",
         "user": None
         }
         chunk = post('https://p2.v50.ltd/api/chat-process', headers=headers, data=json.dumps(params))
@@ -55,7 +55,7 @@ st.set_page_config(
         'About': "Alpha AI 5.7 By Shajada"
     }
 )
-st.header('Alpha AI 5.0 By Shajada')
+st.header('Alpha AI 5.7 By Shajada')
 
 # Add text area for user input and button to get answer
 question_text_area = st.text_area(
