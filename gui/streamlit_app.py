@@ -52,7 +52,7 @@ st.set_page_config(
     menu_items={
         'Get Help': 'https://www.facebook.com/Shajada0',
         'Report a bug': "https://www.facebook.com/Shajada0",
-        'About': "Alpha AI 5.0 By Shajada"
+        'About': "Alpha AI 5.7 By Shajada"
     }
 )
 st.header('Alpha AI 5.0 By Shajada')
